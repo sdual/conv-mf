@@ -110,7 +110,10 @@ class VectorizedMeanSquareError:
         self._l2_reg_param = l2_reg_param
 
     def grad(self, Xs: np.ndarray, ys: np.ndarray, pred_ys: np.ndarray, weights: np.ndarray) -> np.ndarray:
-        return - sum(pred_ys - ys) / len(Xs)
+        if len(Xs) != len(ys) or len(Xs) != len(pred_ys):
+            raise ValueError(
+                'ys and y must be the same length of Xs. len(Xs): {0} len(ys): {1}, len(pred_ys): {2}'.format(len(Xs), len(ys), len(pred_ys)))
+        return np.dot(Xs.T, (pred_ys - ys) * pred_ys * (1.0 - pred_ys)) / len(Xs) + 2.0 * self._l2_reg_param * weights
 
     def value(self, ys: np.ndarray, pred_ys: np.ndarray, weights: np.ndarray) -> float:
         if len(ys) != len(pred_ys):
@@ -120,7 +123,11 @@ class VectorizedMeanSquareError:
             )
 
         num_data = len(ys)
+        loss = 0.0
+        for dim_index in range(pred_ys.shape[1]):
+            loss += 1.0 / 2.0 * sum([
+                (y - pred_y) ** 2
+                for y, pred_y in zip(ys[:, 0], pred_ys[:, dim_index])
+            ]) / num_data + self._l2_reg_param * np.dot(weights.T, weights)[dim_index][dim_index]
 
-        return sum([
-            (ys - pred_ys)**2.0 for y, pred_y in zip(ys[:, 0], pred_ys[:, 0])
-        ]) / num_data + self._l2_reg_param * sum(weights)**2.0
+        return loss

@@ -16,7 +16,7 @@ def main():
     print(X.shape)
 
     # vlr = LogisticRegression(0.1, 200, 'MSE', 0.1)
-    vlr = VectorizedLogisticRegression(0.1, 200, 'cross_entropy', 0.1, 10)
+    vlr = VectorizedLogisticRegression(0.1, 200, 'MSE', 0.1, 10)
     print('start to train.')
     vlr.train(X, y)
 
