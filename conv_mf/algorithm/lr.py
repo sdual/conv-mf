@@ -37,8 +37,6 @@ class LogisticRegression(LossFunctionSelectMixin):
         loss_grads: np.ndarray = self._loss_func.grad(
             Xs, ys, pred_ys, self._weights)
 
-        print('loss grads: ')
-        print(loss_grads)
         # parameterの更新
         self._weights = self._grad_descent.update_func(
             loss_grads, self._weights)

@@ -1,10 +1,17 @@
 from conv_mf.algorithm.grad_descent import StandardGradDescent
 from conv_mf.algorithm.loss import (BinaryCrossEntropy,
-                                    LossFunctionSelectMixin, MeanSquareError)
+                                    LossFunctionSelectMixin, MeanSquareError,
+                                    VectorizedBinaryCrossEntropy,
+                                    VectorizedLossFunctionMixin)
 from conv_mf.algorithm.lr import LogisticRegression
+from conv_mf.algorithm.vec_lr import VectorizedLogisticRegression
 
 __all__ = [
     'StandardGradDescent',
     'BinaryCrossEntropy',
-    'LogisticRegression'
+    'VectorizedBinaryCrossEntropy',
+    'LossFunctionSelectMixin',
+    'VectorizedLossFunctionMixin',
+    'LogisticRegression',
+    'VectorizedLogisticRegression'
 ]

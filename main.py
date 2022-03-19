@@ -3,7 +3,7 @@ import traceback
 import matplotlib.pyplot as plt
 from sklearn import datasets
 
-from conv_mf.algorithm import LogisticRegression
+from conv_mf.algorithm import LogisticRegression, VectorizedLogisticRegression
 
 
 def main():
@@ -15,7 +15,8 @@ def main():
 
     print(X.shape)
 
-    vlr = LogisticRegression(0.1, 200, 'MSE', 0.1)
+    # vlr = LogisticRegression(0.1, 200, 'MSE', 0.1)
+    vlr = VectorizedLogisticRegression(0.1, 200, 'cross_entropy', 0.1, 10)
     print('start to train.')
     vlr.train(X, y)
 
