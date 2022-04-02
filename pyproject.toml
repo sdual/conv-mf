@@ -8,6 +8,8 @@ authors = ["sdual <shr.nrht.0623@gmail.com>"]
 python = "^3.10"
 matplotlib = "^3.5.1"
 sklearn = "^0.0"
+torchvision = "^0.12.0"
+torch = "^1.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
